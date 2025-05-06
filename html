@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sake.onion</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #FFD700;
+      font-family: monospace;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    textarea, input, .output {
+      background-color: #111;
+      color: #FFD700;
+      border: 1px solid #FFD700;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .output {
+      min-height: 30px;
+    }
+    .history {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #FFD700;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>sake.onion</h1>
+  <div class="container">
+    <input type="text" id="inputValue" placeholder="Вставьте число" />
+    <div class="output" id="result"></div>
+    <div class="history" id="history"></div>
+  </div>  <script>
+    const input = document.getElementById('inputValue');
+    const resultDiv = document.getElementById('result');
+    const historyDiv = document.getElementById('history');
+
+    function roundUpToNearest500(num) {
+      return Math.ceil(num / 500) * 500;
+    }
+
+    input.addEventListener('input', () => {
+      const raw = input.value.replace(/[^0-9]/g, '');
+      const value = parseInt(raw, 10);
+      if (isNaN(value)) {
+        resultDiv.textContent = '';
+        return;
+      }
+
+      let result = null;
+      let divisorUsed = null;
+      let rounded = null;
+
+      for (let d = 60; d >= 1; d--) {
+        const division = value / d;
+        if (division >= 9501) {
+          result = Math.floor(division);
+          rounded = roundUpToNearest500(result);
+          divisorUsed = d;
+          break;
+        }
+      }
+
+      if (result !== null) {
+        const output = `${value} / ${divisorUsed} = ${result} → округлён до ${rounded}`;
+        resultDiv.textContent = output;
+
+        const entry = document.createElement('div');
+        entry.textContent = output;
+        historyDiv.prepend(entry);
+      } else {
+        resultDiv.textContent = 'Недостаточно для деления на 9501';
+      }
+    });
+  </script></body>
+</html>

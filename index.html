@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,6 +41,15 @@
       border: 1px solid #FFD700;
       padding: 10px;
     }
+    .image-block {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .image-block img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #FFD700;
+    }
   </style>
 </head>
 <body>
@@ -48,7 +58,14 @@
     <input type="text" id="inputValue" placeholder="Вставьте сумму" />
     <div class="output" id="result"></div>
     <div class="history" id="history"></div>
-  </div>  <script>
+
+    <!-- ВСТАВЛЕННАЯ КАРТИНКА -->
+    <div class="image-block">
+      <img src="WhatsApp Image 2025-05-07 at 13.52.17.jpeg" alt="sake image" />
+    </div>
+  </div>
+
+  <script>
     const input = document.getElementById('inputValue');
     const resultDiv = document.getElementById('result');
     const historyDiv = document.getElementById('history');
@@ -90,5 +107,6 @@
         resultDiv.textContent = 'Недостаточно для деления';
       }
     });
-  </script></body>
+  </script>
+</body>
 </html>
